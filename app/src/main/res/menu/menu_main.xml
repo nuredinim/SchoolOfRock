@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.schoolofrock.MainActivity">
+    <item
+        android:id="@+id/action_like"
+        android:orderInCategory="1"
+        android:title="@string/like"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_dislike"
+        android:orderInCategory="2"
+        android:title="@string/dislike"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_count"
+        android:orderInCategory="3"
+        android:title="@string/count"
+        app:showAsAction="always" />
+</menu>
