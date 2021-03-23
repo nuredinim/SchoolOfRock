@@ -74,31 +74,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // get the id of the menu item selected
-        switch (item.getItemId()) {
-            case R.id.action_count :
-                // Display toast that has count of CIS students
-                Toast.makeText(this, getMessage("Like"), Toast.LENGTH_LONG).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
-    public String getMessage (String vote) {
-        int count = dbHandler.count(vote);
-        return (count == 1 ? count + " Likes: " : count + " Dislikes: ");
+    public String getMessage (MenuItem menuItem) {
+        int count = dbHandler.count();
+        int count2 = dbHandler.count2();
+        Toast.makeText(this, "Likes: " + count + " Dislikes: " + count2,Toast.LENGTH_LONG).show();
+        return (count == 1 ? count + " Likes: " : count2 + " Dislikes: ");
     }
 
     public void like(MenuItem menuItem) {
         // get data input in EditText and store it in String
         String name = voterEditText.getText().toString();
-        String song = songSpinner.getPrompt().toString();
 
         // trim Strings and see if they're equal to empty Strings
-        if (name.trim().equals("")){
+        if (name.trim().equals("") || song.trim().equals("")){
             // display "Please enter a name, store, and date!" Toast if any of the Strings are empty
             Toast.makeText(this, "Please enter a name!", Toast.LENGTH_LONG).show();
         } else {
@@ -113,15 +102,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void dislike(MenuItem menuItem) {
         // get data input in EditText and store it in String
         String name = voterEditText.getText().toString();
-        String song = songSpinner.getPrompt().toString();
 
         // trim Strings and see if they're equal to empty Strings
-        if (name.trim().equals("")){
+        if (name.trim().equals("") || song.trim().equals("")){
             // display "Please enter a name, store, and date!" Toast if any of the Strings are empty
             Toast.makeText(this, "Please enter a name!", Toast.LENGTH_LONG).show();
         } else {
             // add item into database
-            dbHandler.like(name, song);
+            dbHandler.dislike(name, song);
 
             // display "Student added!" Toast of none of the Strings are empty
             Toast.makeText(this, "Vote Cast!", Toast.LENGTH_LONG).show();
@@ -130,13 +118,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // get the id of the Spinner that called method
-        switch (parent.getId()) {
-            case R.id.songSpinner:
                 // get the item selected in the Spinner and store it in String
                 song = parent.getItemAtPosition(position).toString();
-                break;
-        }
+
     }
 
     @Override

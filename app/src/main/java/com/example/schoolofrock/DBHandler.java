@@ -62,7 +62,7 @@ public class DBHandler extends SQLiteOpenHelper {
         // put data into ContentValues object
         values.put(COLUMN_SONG_NAME, song);
         values.put(COLUMN_VOTER_NAME, voter);
-
+        values.put(COLUMN_VOTE,1);
 
         // insert data in ContentValues object into student table
         db.insert(TABLE_SONG_VOTE, null, values);
@@ -82,7 +82,7 @@ public class DBHandler extends SQLiteOpenHelper {
         // put data into ContentValues object
         values.put(COLUMN_SONG_NAME, song);
         values.put(COLUMN_VOTER_NAME, voter);
-
+        values.put(COLUMN_VOTE,0);
 
         // insert data in ContentValues object into student table
         db.insert(TABLE_SONG_VOTE, null, values);
@@ -91,19 +91,32 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public int count (String vote) {
+    public int count () {
 
         // get reference to chc database
         SQLiteDatabase db = getWritableDatabase();
 
         // define select statement
         String query = "SELECT * FROM " + TABLE_SONG_VOTE +
-                " WHERE " + COLUMN_VOTE + " = " + "'" + vote + "'";
+                " WHERE " + COLUMN_VOTE + " = " + 1;
 
 
         // execute select statement and return count of rows in Cursor
         return db.rawQuery(query,  null).getCount();
+    }
 
+    public int count2 () {
+
+        // get reference to chc database
+        SQLiteDatabase db = getWritableDatabase();
+
+        // define select statement
+        String query = "SELECT * FROM " + TABLE_SONG_VOTE +
+                " WHERE " + COLUMN_VOTE + " = " + 0;
+
+
+        // execute select statement and return count of rows in Cursor
+        return db.rawQuery(query,  null).getCount();
     }
 
 }
